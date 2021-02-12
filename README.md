@@ -26,8 +26,7 @@ def main():
 	datalist = generate_data(LinearFunction,ranges)
 	datalist2 = generate_data(ExponentialFunction,ranges)
 	datalist3 = generate_data(ExponentialFunction1,ranges)
-	datalist4 = generate_data(ExponentialFunction2,ranges)
-	myobject = Graph('light')
+ 	myobject = Graph('light')
 	myobject.adddata(datalist,datalist2,datalist3)
 
 ```
