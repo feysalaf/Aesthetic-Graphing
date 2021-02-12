@@ -22,7 +22,7 @@ from graph import *
 
 
 def main():
-	ranges = {"start":-2000,"end":2001}
+	ranges = {"start":-100,"end":101}
 	datalist = generate_data(LinearFunction,ranges)
 	datalist2 = generate_data(ExponentialFunction,ranges)
 	datalist3 = generate_data(ExponentialFunction1,ranges)
