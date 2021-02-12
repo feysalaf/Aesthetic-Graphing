@@ -32,11 +32,14 @@ def main():
 
 ```
 The last two lines initialize everything and graph the data automatically. The result is below:
-![First Picture](1.png)
-![Dark Picture](2.png)
+
+![First Picture](one.png)
+
+
+![Dark Picture](two.png)
  
 
-***
+ 
 
 ## What I learned
 
