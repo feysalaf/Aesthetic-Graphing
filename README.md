@@ -33,13 +33,8 @@ def main():
 The last two lines initialize everything and graph the data automatically. The result is below:
 <p align="center">
   <img src="https://github.com/arkilo/Aesthetic-Graphing/blob/master/assets/one.png" width="350" height="250" title="hover text">
-  <img src="https://github.com/arkilo/Aesthetic-Graphing/blob/master/assets/two.png" width="320" height="250 alt="accessibility text">
+  <img src="https://github.com/arkilo/Aesthetic-Graphing/blob/master/assets/two.png" width="365" height="250" alt="accessibility text">
 </p>
-
-![First Picture](https://github.com/arkilo/Aesthetic-Graphing/blob/master/assets/one.png)
-
-
-![Dark Picture](https://github.com/arkilo/Aesthetic-Graphing/blob/master/assets/two.png)
  
 
  
