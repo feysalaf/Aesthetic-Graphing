@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import seaborn as sb, numpy as np
+import seaborn as sb 
 from seaborn import lineplot
 import pandas as pd
 
