@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import seaborn as sb 
+import seaborn as sb
 from seaborn import lineplot
 import pandas as pd
 
@@ -50,6 +50,10 @@ class Graph():
                 graph_counter = graph_counter + 1
                 print("Graph # {} initialized".format(graph_counter))
                 print("Final graph is: \n{}".format(graphname))
+        #show the data if only one dataset was given
+        #no. of datasets == graph_counter
+        if(graph_counter == 0):
+            print("Final graph is: \n{}".format(graphname))
         #graph them all
         #set color_palette
         palette = sb.color_palette("mako_r", graph_counter)
@@ -88,3 +92,4 @@ def ExponentialFunction2(i):
 #datalist4 = generate_data(ExponentialFunction2,ranges)
 #myobj = Graph('light')
 #myobj.adddata(datalist,datalist2,datalist3)
+
