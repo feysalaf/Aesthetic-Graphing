@@ -52,7 +52,7 @@ class Graph():
                 print("Final graph is: \n{}".format(graphname))
         #show the data if only one dataset was given
         #no. of datasets == graph_counter
-        if(graph_counter == 0):
+        if(graph_counter == 1):
             print("Final graph is: \n{}".format(graphname))
         #graph them all
         #set color_palette
