@@ -31,11 +31,10 @@ def main():
 
 ```
 The last two lines initialize everything and graph the data automatically. The result is below:
-
-![First Picture](one.png)
-
-
-![Dark Picture](two.png)
+<p align="center">
+  <img src="https://github.com/arkilo/Aesthetic-Graphing/blob/master/assets/one.png" width="350" height="250" title="hover text">
+  <img src="https://github.com/arkilo/Aesthetic-Graphing/blob/master/assets/two.png" width="365" height="250" alt="accessibility text">
+</p>
  
 
  
