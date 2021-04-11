@@ -2,10 +2,15 @@ import matplotlib.pyplot as plt
 import seaborn as sb
 from seaborn import lineplot
 import pandas as pd
-
+import json
+import random
+#dependency, REFACTOR can be replaced by more efficient plot lib
+from drawnow import drawnow
+import time
 
 class Graph():
     def __init__(self,*args):
+        self.internaldata = []
         global graph_counter
         graph_counter = 0
         sb.set_style(style="darkgrid")
@@ -60,7 +65,30 @@ class Graph():
         graphname = graphname.melt('x',var_name="Values",value_name='values')
         lineplot(x="x", y="values", hue='Values', data=graphname,palette=palette)
         plt.show()
+        plt.pause(0.0001)
+    def make_fig(self):
+        #convert to DataFrame
+        dataframe = pd.DataFrame(self.internaldata)
+        palette = sb.color_palette("mako_r", 1)
+        lineplot(x="x", y="y", data=dataframe,palette=palette)
+        print(dataframe)
+        #plt.plot(x, y)
+    def plotRealtime(self,jsonfile,y_label):
+        x = []
+        y = []
+        for i in range(100):
+            #read data from json file(get y)
+            with open(jsonfile, "r") as read_file:
+                datainput = json.load(read_file)
+            #get the last value
+            self.internaldata.append({"x":i,"y":datainput[-1][y_label]})
+            #y.append(datainput[-1][y_label])
+            #x.append(i)
+            time.sleep(1)
 
+            drawnow(self.make_fig)
+
+#returns a json dataobject
 def generate_data(function:str,ranges:dict):
     #declare data container(list)
     datalist = []
@@ -73,7 +101,7 @@ def generate_data(function:str,ranges:dict):
     return datalist
 
 
-#ranges = {"start":-100,"end":101}
+ranges = {"start":-100,"end":101}
 #function
 def LinearFunction(i):
     return 2 * i ** 2 + 10
@@ -86,10 +114,31 @@ def ExponentialFunction1(i):
 
 def ExponentialFunction2(i):
     return 3 * i + 23
-#datalist = generate_data(LinearFunction,ranges)
-#datalist2 = generate_data(ExponentialFunction,ranges)
-#datalist3 = generate_data(ExponentialFunction1,ranges)
-#datalist4 = generate_data(ExponentialFunction2,ranges)
-#myobj = Graph('light')
-#myobj.adddata(datalist,datalist2,datalist3)
+data = []
+# def generateJson():
+#
+#     d = random.randint(0,100)
+#     data.append({"Price":d,"Var":2*d})
+#     with open('jsonPriceData', 'w') as fout:
+#         json.dump(data, fout)
+#
+#
+# for i in range(50):
+#     generateJson()
 
+# with open("jsonPriceData", "r") as read_file:
+#     datainput = json.load(read_file)
+# print(datainput[49]['Var'])
+
+# datalist = generate_data(LinearFunction,ranges)
+# datalist2 = generate_data(ExponentialFunction,ranges)
+# datalist3 = generate_data(ExponentialFunction1,ranges)
+# datalist4 = generate_data(ExponentialFunction2,ranges)
+# print(datalist)
+# myobj = Graph('light')
+# myobj.adddata(datalist,datalist2,datalist3)
+# myobj.adddata(datalist,datalist2,datalist3)
+
+#Realtime testing
+myobj = Graph('light')
+myobj.plotRealtime('jsonPriceData','Price')
