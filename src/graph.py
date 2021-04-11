@@ -7,6 +7,8 @@ import random
 #dependency, REFACTOR can be replaced by more efficient plot lib
 from drawnow import drawnow
 import time
+#multiple threads
+from multiprocessing import Process
 
 class Graph():
     def __init__(self,*args):
@@ -29,7 +31,6 @@ class Graph():
                 backgroundColor:str = '#1F2430'
                 gridColor:str       = '#6F6F6F'
                 gridOuter:str       = '#1F2430'
-
         sb.set(rc={'axes.facecolor':backgroundColor,
                   'figure.facecolor':backgroundColor,
                   'grid.color':gridColor,
@@ -70,23 +71,45 @@ class Graph():
         #convert to DataFrame
         dataframe = pd.DataFrame(self.internaldata)
         palette = sb.color_palette("mako_r", 1)
-        lineplot(x="x", y="y", data=dataframe,palette=palette)
+        plt.ion()
+        lineplot(x="x", y=self.y_label, data=dataframe,palette=palette)
         print(dataframe)
         #plt.plot(x, y)
+    def get_json_length(self,jsonfile):
+        with open(jsonfile, "r") as read_file:
+            in_ = json.load(read_file)
+        return len(in_)
     def plotRealtime(self,jsonfile,y_label):
+        self.y_label = y_label
         x = []
         y = []
-        for i in range(100):
+        
+        for i in range(self.get_json_length(jsonfile)):
             #read data from json file(get y)
             with open(jsonfile, "r") as read_file:
                 datainput = json.load(read_file)
             #get the last value
-            self.internaldata.append({"x":i,"y":datainput[-1][y_label]})
+            self.internaldata.append({"x":i,y_label:datainput[-1][y_label]})
             #y.append(datainput[-1][y_label])
             #x.append(i)
             time.sleep(1)
 
             drawnow(self.make_fig)
+
+    def plotRealtimeAsync(self,**kwargs):
+        var_list = []
+        process_list = []
+        for k,v in kwargs.items():
+            if(k == 'jsonfile'):
+                jfile = v
+            else:
+                var_list.append(v)
+        for i in range(len(var_list)):
+            process = Process(target=self.plotRealtime,args=(jfile,var_list[i]))
+            process_list.append(process)
+        for i in process_list:
+            i.start()
+        print(process_list)
 
 #returns a json dataobject
 def generate_data(function:str,ranges:dict):
@@ -141,4 +164,5 @@ data = []
 
 #Realtime testing
 myobj = Graph('light')
-myobj.plotRealtime('jsonPriceData','Price')
+myobj.plotRealtimeAsync(jsonfile='jsonPriceData'
+                        ,var='Var',var1='Price')
